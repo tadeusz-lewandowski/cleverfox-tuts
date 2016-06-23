@@ -50,6 +50,16 @@ app.route('/api/tutorials')
     });
   });
 
+app.route('/api/tutorials/:id')
+  .get(function(req, res){
+    Tutorial.findById(req.params.id, function(err, tutorial) {
+      if(err){
+        res.sendStatus(404);
+      } else{
+        res.send(tutorial);
+      }
+    });
+  });
 
 app.listen(config.port, function () {
   console.log('Cleverfox tuts listening on port ' + config.port + '!');
