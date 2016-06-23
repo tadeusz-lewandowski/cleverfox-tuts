@@ -59,6 +59,36 @@ app.route('/api/tutorials/:id')
         res.send(tutorial);
       }
     });
+  })
+  .put(function(req, res) {
+    Tutorial.findById(req.params.id, function(err, tutorial) {
+      if(err){
+        res.sendStatus(404);
+      } else {
+        tutorial.title = req.body.title;
+        tutorial.content = req.body.content;
+        tutorial.category = req.body.category;
+
+        tutorial.save(function(err) {
+          if(err){
+            res.sendStatus(403);
+          } else{
+            res.sendStatus(200);
+          }
+        });
+      }
+    });
+  })
+  .delete(function(req, res) {
+    Tutorial.remove({
+        _id: req.params.id
+    }, function(err, tutorial) {
+      if (err){
+        res.sendStatus(403);
+      } else{
+        res.sendStatus(200);
+      }
+    });
   });
 
 app.listen(config.port, function () {
