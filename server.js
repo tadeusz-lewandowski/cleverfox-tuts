@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var config = require('./config.js');
 var mongoose = require('mongoose');
 
+var Tutorial = require('./models/Tutorial.js');
+
 mongoose.connect(config.db);
 
 mongoose.connection.on('connected', function () {
