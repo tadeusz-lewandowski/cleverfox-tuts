@@ -26,10 +26,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.route('/api/tutorials')
   .get(function(req, res){
-    res.send('Hello');
+    Tutorial.find({}, function(err, tutorials) {
+      if(err){
+        res.sendStatus(404);
+      } else{
+        res.send(tutorials)
+      }
+    });
   })
   .post(function(req, res){
-    res.send(req.body);
+    var tutorial = new Tutorial();
+
+    tutorial.title = req.body.title;
+    tutorial.category = req.body.category;
+    tutorial.content = req.body.content;
+
+    tutorial.save(function(err) {
+      if(err){
+        res.sendStatus(403);
+      } else{
+        res.sendStatus(200);
+      }
+    });
   });
 
 
