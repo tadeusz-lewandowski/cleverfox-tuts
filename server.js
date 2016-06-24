@@ -4,6 +4,7 @@ var config = require('./config.js');
 var mongoose = require('mongoose');
 
 var Tutorial = require('./models/Tutorial.js');
+var User = require('./models/User.js');
 
 mongoose.connect(config.db);
 
