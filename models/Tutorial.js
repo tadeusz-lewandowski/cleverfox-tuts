@@ -5,7 +5,7 @@ var tutorialSchema = new Schema({
   title:    { type: String, required: true },
   category: { type: String, required: true },
   content:  { type: String, required: true},
-  comments: [{ content: String, date: { type: Date, default: Date.now} }],
+  comments: [{ content: String, username : String,date: { type: Date, default: Date.now} }],
   date:     { type: Date, default: Date.now }
 });
 
