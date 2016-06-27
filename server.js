@@ -30,19 +30,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(session({ secret: 'topsecret',resave: true, saveUninitialized: true, cookie:{_expires : 60000 * 10} })); // session secret
+app.use(session(config.session));
 app.use(passport.initialize());
 app.use(passport.session());
 
 function isLoggedIn(req, res, next) {
-    console.log(req.user);
-    if (req.isAuthenticated())
-        return next();
+  console.log(req.user);
+  if (req.isAuthenticated())
+      return next();
 
-    res.send('Authorize yourself');
+  res.send('Authorize yourself');
 }
 
-app.post('/api/comments', function(req, res){
+function isLoggedInAsAdmin(req, res, next) {
+  console.log(req.user);
+  if (req.isAuthenticated() && req.user.role === 'admin')
+      return next();
+
+  res.send('Authorize yourself');
+}
+
+app.post('/api/comments', isLoggedIn, function(req, res){
   Tutorial.findById(req.body.id, function(err, tutorial) {
     if(err){
       res.sendStatus(404);
@@ -60,7 +68,7 @@ app.post('/api/comments', function(req, res){
   });
 });
 
-app.get('/api/user', isLoggedIn, function(req, res){
+app.get('/api/profile', isLoggedIn, function(req, res){
   res.json({ username: req.user.username});
 });
 
@@ -77,20 +85,9 @@ app.post('/api/login',
     res.json({ id: req.user.id, username: req.user.username });
   }
 );
-/*app.post('/api/login', function(req, res, next) {
-    passport.authenticate('local-login', function(err, user) {
-      if (err) { return next(err); }
-      if (!user) { return res.redirect('/login'); }
-      req.logIn(user, function(err) {
-        if (err) { return next(err); }
-        return res.send(user);
-      });
-    })(req, res, next);
-  });*/
-
 
 app.route('/api/tutorials')
-  .get(function(req, res){
+  .get(isLoggedInAsAdmin, function(req, res){
     Tutorial.find({}, function(err, tutorials) {
       if(err){
         res.sendStatus(404);
