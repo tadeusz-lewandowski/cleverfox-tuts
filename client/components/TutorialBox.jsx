@@ -5,8 +5,8 @@ export default class TutorialBox extends React.Component {
     return (
       <li>
         <div>
-          <h1>JS</h1>
-          <h4>making chat</h4>
+          <h1>{this.props.category}</h1>
+          <h4>{this.props.title}</h4>
         </div>
       </li>
     )
