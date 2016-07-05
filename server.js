@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var path = require('path');
 
 var Tutorial = require('./models/Tutorial.js');
 var User = require('./models/User.js');
@@ -26,7 +27,7 @@ mongoose.connection.on('disconnected', function () {
 
 var app = express();
 
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(__dirname + '/client'))
 
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
@@ -54,9 +55,7 @@ function isLoggedInAsAdmin(req, res, next) {
   res.send('Authorize yourself');
 }
 
-app.get('*', function(req, res){
-  res.sendFile('index.html');
-});
+
 
 app.post('/api/comments', isLoggedIn, function(req, res){
   Tutorial.findById(req.body.id, function(err, tutorial) {
@@ -160,6 +159,10 @@ app.route('/api/tutorials/:id')
       }
     });
   });
+
+app.get('*', function(req, res){
+  res.sendFile(path.resolve(__dirname, 'client', 'index.html'))
+});
 
 app.listen(config.port, function () {
   console.log('Cleverfox tuts listening on port ' + config.port + '!');
