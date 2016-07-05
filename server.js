@@ -26,6 +26,8 @@ mongoose.connection.on('disconnected', function () {
 
 var app = express();
 
+app.use(express.static(__dirname + '/client'));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
 app.use(cookieParser());
@@ -33,6 +35,8 @@ app.use(cookieParser());
 app.use(session(config.session));
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 
 function isLoggedIn(req, res, next) {
   console.log(req.user);
@@ -49,6 +53,10 @@ function isLoggedInAsAdmin(req, res, next) {
 
   res.send('Authorize yourself');
 }
+
+app.get('*', function(req, res){
+  res.sendFile('index.html');
+});
 
 app.post('/api/comments', isLoggedIn, function(req, res){
   Tutorial.findById(req.body.id, function(err, tutorial) {
