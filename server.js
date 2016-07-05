@@ -87,7 +87,7 @@ app.post('/api/login',
 );
 
 app.route('/api/tutorials')
-  .get(isLoggedInAsAdmin, function(req, res){
+  .get(function(req, res){
     Tutorial.find({}, function(err, tutorials) {
       if(err){
         res.sendStatus(404);
