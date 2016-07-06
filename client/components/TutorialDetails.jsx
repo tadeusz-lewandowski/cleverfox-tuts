@@ -1,6 +1,7 @@
 import React from 'react';
 import qwest from 'qwest';
 import CommentsList from './CommentsList.jsx';
+import NewComment from './NewComment.jsx';
 
 export default class TutorialDetails extends React.Component {
   constructor(){
@@ -30,7 +31,7 @@ export default class TutorialDetails extends React.Component {
             { this.state.data.content }
           </article>
           <hr/>
-          <input type="text" className="comment-input" placeholder="Write comment"/><button className="comment-button">Comment</button>
+          <NewComment />
           <CommentsList data={this.state.data.comments} />
         </div>
 
