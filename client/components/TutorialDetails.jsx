@@ -1,5 +1,6 @@
 import React from 'react';
 import qwest from 'qwest';
+import CommentsList from './CommentsList.jsx';
 
 export default class TutorialDetails extends React.Component {
   constructor(){
@@ -9,15 +10,16 @@ export default class TutorialDetails extends React.Component {
 
   componentDidMount(){
     //console.log(this.props.params.id);
+    //console.log("działa wszystko");
     var self = this;
     qwest.get('http://localhost:4000/api/tutorials/' + this.props.params.id)
   	  .then(function(xhr, response) {
         self.setState({ data: response});
-        console.log(response);
 	    });
   }
 
   render() {
+
     return (
       <div className="container">
 
@@ -29,18 +31,7 @@ export default class TutorialDetails extends React.Component {
           </article>
           <hr/>
           <input type="text" className="comment-input" placeholder="Write comment"/><button className="comment-button">Comment</button>
-          <ul className="comments">
-            <li>
-              <h4>sordahon</h4>
-              <span className="comment-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
-              <span className="comment-date">2016-06-14</span>
-            </li>
-            <li>
-              <h4>user2</h4>
-              <span className="comment-content">Quisque sollicitudin, mi sed posuere interdum?</span>
-              <span className="comment-date">2016-06-14</span>
-            </li>
-          </ul>
+          <CommentsList data={this.state.data.comments} />
         </div>
 
       </div>

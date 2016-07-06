@@ -15,7 +15,7 @@ export default class Tutorials extends React.Component {
         self.setState({ data: response});
 	    });
   }
-  
+
   render() {
     return (
       <div className="container">
