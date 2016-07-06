@@ -7,6 +7,7 @@ export default class Tutorials extends React.Component {
     super();
     this.state = { data: [] }
   }
+
   componentDidMount() {
     var self = this;
     qwest.get('http://localhost:4000/api/tutorials')
@@ -14,6 +15,7 @@ export default class Tutorials extends React.Component {
         self.setState({ data: response});
 	    });
   }
+  
   render() {
     return (
       <div className="container">
