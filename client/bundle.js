@@ -243,6 +243,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
+var _qwest = require('qwest');
+
+var _qwest2 = _interopRequireDefault(_qwest);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -257,12 +261,33 @@ var Navbar = function (_React$Component) {
   function Navbar() {
     _classCallCheck(this, Navbar);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).call(this));
+
+    _this.state = { data: [] };
+    return _this;
   }
 
   _createClass(Navbar, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var self = this;
+      _qwest2.default.get('http://localhost:4000/api/profile').then(function (xhr, response) {
+        console.log(response);
+      }).catch(function (e, xhr, response) {
+        self.setState(data.username = undefined);
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var navButton;
+      if (this.state.data.username == undefined) {
+        navButton = _react2.default.createElement(
+          'span',
+          null,
+          'Sign-in'
+        );
+      }
       return _react2.default.createElement(
         'nav',
         { className: 'navbar' },
@@ -293,11 +318,7 @@ var Navbar = function (_React$Component) {
             _react2.default.createElement(
               'li',
               null,
-              _react2.default.createElement(
-                'span',
-                null,
-                'sign-in'
-              )
+              navButton
             )
           )
         )
@@ -310,8 +331,8 @@ var Navbar = function (_React$Component) {
 
 exports.default = Navbar;
 
-},{"react":242,"react-router":94}],6:[function(require,module,exports){
-"use strict";
+},{"qwest":63,"react":242,"react-router":94}],6:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -319,7 +340,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -341,23 +362,25 @@ var NewComment = function (_React$Component) {
   }
 
   _createClass(NewComment, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "div",
+        'div',
         null,
-        _react2.default.createElement("input", { type: "text", className: "comment-input", placeholder: "Write comment" }),
+        _react2.default.createElement('input', { id: 'comment-input', type: 'text', className: 'comment-input', placeholder: 'Write comment' }),
         _react2.default.createElement(
-          "button",
-          { className: "comment-button", onClick: this.clickFunction.bind(this) },
-          "Comment"
+          'button',
+          { className: 'comment-button', onClick: this.clickFunction.bind(this) },
+          'Comment'
         )
       );
     }
   }, {
-    key: "clickFunction",
+    key: 'clickFunction',
     value: function clickFunction() {
       console.log(this.props.id);
+      var input = document.getElementById('comment-input');
+      console.log(input.value);
     }
   }]);
 
