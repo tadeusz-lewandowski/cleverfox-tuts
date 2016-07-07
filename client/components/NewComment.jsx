@@ -9,6 +9,7 @@ export default class NewComment extends React.Component {
       </div>
     )
   }
+  
   clickFunction(){
     console.log(this.props.id);
     var input = document.getElementById('comment-input');

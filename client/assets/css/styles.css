@@ -52,6 +52,7 @@ body {
   display: block;
   padding: 0 0.5rem;
   text-transform: uppercase;
+  cursor: pointer;
 }
 .navbar-menu-right {
   position: absolute;
@@ -129,6 +130,7 @@ body {
   position: fixed;
   top: 0;
   z-index: 1;
+  display: none;
 }
 .sign-in-input {
   border: 1px solid #cdcdcd;
