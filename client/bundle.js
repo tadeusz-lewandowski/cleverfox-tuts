@@ -74,10 +74,6 @@ var _Navbar = require('./Navbar.jsx');
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _Dropdowns = require('./Dropdowns.jsx');
-
-var _Dropdowns2 = _interopRequireDefault(_Dropdowns);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -102,7 +98,6 @@ var App = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(_Navbar2.default, null),
-        _react2.default.createElement(_Dropdowns2.default, null),
         this.props.children
       );
     }
@@ -113,7 +108,7 @@ var App = function (_React$Component) {
 
 exports.default = App;
 
-},{"./Dropdowns.jsx":5,"./Navbar.jsx":6,"react":244}],3:[function(require,module,exports){
+},{"./Navbar.jsx":6,"react":244}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -266,6 +261,30 @@ var Dropdowns = function (_React$Component) {
   _createClass(Dropdowns, [{
     key: 'render',
     value: function render() {
+      var dropdown = null;
+
+      if (this.props.mode == 'sign-in') {
+        console.log('sign-in');
+        dropdown = _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', { type: 'text', placeholder: 'Username', className: 'sign-in-input' }),
+          _react2.default.createElement('input', { type: 'password', placeholder: 'Password', className: 'sign-in-input' }),
+          _react2.default.createElement(
+            'button',
+            { className: 'sign-in-button' },
+            'Sign-in'
+          ),
+          _react2.default.createElement(
+            'span',
+            { className: 'sign-up-text' },
+            'New to Cleverfox? Sign up'
+          )
+        );
+      } else {
+        console.log('cos innego');
+      }
+
       return _react2.default.createElement(
         'div',
         { className: 'dropdowns', id: 'dropdowns' },
@@ -274,19 +293,8 @@ var Dropdowns = function (_React$Component) {
           { className: 'container' },
           _react2.default.createElement(
             'div',
-            { className: 'sign-in-menu', id: 'sign-in-menu' },
-            _react2.default.createElement('input', { type: 'text', placeholder: 'Username', className: 'sign-in-input' }),
-            _react2.default.createElement('input', { type: 'password', placeholder: 'Password', className: 'sign-in-input' }),
-            _react2.default.createElement(
-              'button',
-              { className: 'sign-in-button' },
-              'Sign-in'
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'sign-up-text' },
-              'New to Cleverfox? Sign up'
-            )
+            { className: 'sign-in-menu' },
+            dropdown
           )
         )
       );
@@ -321,6 +329,10 @@ var _SignInButton = require('./SignInButton.jsx');
 
 var _SignInButton2 = _interopRequireDefault(_SignInButton);
 
+var _Dropdowns = require('./Dropdowns.jsx');
+
+var _Dropdowns2 = _interopRequireDefault(_Dropdowns);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -337,7 +349,7 @@ var Navbar = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).call(this));
 
-    _this.state = { data: [] };
+    _this.state = { username: undefined, mode: undefined };
     document.addEventListener("click", _this.closeDropdowns);
     return _this;
   }
@@ -349,50 +361,57 @@ var Navbar = function (_React$Component) {
       _qwest2.default.get('http://localhost:4000/api/profile').then(function (xhr, response) {
         console.log(response);
       }).catch(function (e, xhr, response) {
-        self.setState(data.username = undefined);
+        self.setState({ username: undefined, mode: 'sign-in' });
       });
     }
   }, {
     key: 'render',
     value: function render() {
       var navButton;
-      if (this.state.data.username == undefined) {
+      var dropdownMode;
+      console.log('render w navbarze');
+      if (this.state.username == undefined) {
         navButton = _react2.default.createElement(_SignInButton2.default, null);
       }
       return _react2.default.createElement(
-        'nav',
-        { className: 'navbar' },
+        'div',
+        null,
         _react2.default.createElement(
-          'div',
-          { className: 'container' },
+          'nav',
+          { className: 'navbar' },
           _react2.default.createElement(
-            'ul',
-            { className: 'navbar-menu navbar-menu-right' },
+            'div',
+            { className: 'container' },
             _react2.default.createElement(
-              'li',
-              null,
+              'ul',
+              { className: 'navbar-menu navbar-menu-right' },
               _react2.default.createElement(
-                _reactRouter.Link,
-                { to: '/tutorials', className: 'link-active' },
-                'Home'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/tutorials', className: 'link-active' },
+                  'Home'
+                )
+              ),
               _react2.default.createElement(
-                _reactRouter.Link,
-                { to: '/aboutme' },
-                'About'
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/aboutme' },
+                  'About'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                navButton
               )
-            ),
-            _react2.default.createElement(
-              'li',
-              { id: 'sign-in-button' },
-              navButton
             )
           )
-        )
+        ),
+        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode })
       );
     }
   }, {
@@ -412,7 +431,7 @@ var Navbar = function (_React$Component) {
 
 exports.default = Navbar;
 
-},{"./SignInButton.jsx":8,"qwest":65,"react":244,"react-router":96}],7:[function(require,module,exports){
+},{"./Dropdowns.jsx":5,"./SignInButton.jsx":8,"qwest":65,"react":244,"react-router":96}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

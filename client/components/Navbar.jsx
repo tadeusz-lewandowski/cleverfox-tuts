@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router';
 import qwest from 'qwest';
 import SignInButton from './SignInButton.jsx';
+import Dropdowns from './Dropdowns.jsx';
 
 export default class Navbar extends React.Component {
 
   constructor(){
     super();
-    this.state = {data : []};
+    this.state = {username : undefined, mode: undefined};
     document.addEventListener("click", this.closeDropdowns);
   }
 
@@ -18,25 +19,30 @@ export default class Navbar extends React.Component {
         console.log(response);
 	    })
       .catch(function(e, xhr, response) {
-        self.setState(data.username = undefined)
+        self.setState({username : undefined, mode: 'sign-in'})
      });
   }
 
   render() {
     var navButton;
-    if(this.state.data.username == undefined){
+    var dropdownMode;
+    console.log('render w navbarze');
+    if(this.state.username == undefined){
       navButton = <SignInButton />;
     }
     return (
-      <nav className="navbar">
-        <div className="container">
-          <ul className="navbar-menu navbar-menu-right">
-            <li><Link to="/tutorials" className="link-active">Home</Link></li>
-            <li><Link to="/aboutme">About</Link></li>
-            <li id='sign-in-button'>{navButton}</li>
-          </ul>
-        </div>
-      </nav>
+      <div>
+        <nav className="navbar">
+          <div className="container">
+            <ul className="navbar-menu navbar-menu-right">
+              <li><Link to="/tutorials" className="link-active">Home</Link></li>
+              <li><Link to="/aboutme">About</Link></li>
+              <li>{navButton}</li>
+            </ul>
+          </div>
+        </nav>
+        <Dropdowns mode={this.state.mode}/>
+      </div>
     )
   }
 
