@@ -31,7 +31,7 @@ export default class TutorialDetails extends React.Component {
             { this.state.data.content }
           </article>
           <hr/>
-          <NewComment />
+          <NewComment id={this.state.data._id}/>
           <CommentsList data={this.state.data.comments} />
         </div>
 

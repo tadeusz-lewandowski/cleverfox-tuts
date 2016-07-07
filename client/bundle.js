@@ -349,10 +349,15 @@ var NewComment = function (_React$Component) {
         _react2.default.createElement("input", { type: "text", className: "comment-input", placeholder: "Write comment" }),
         _react2.default.createElement(
           "button",
-          { className: "comment-button" },
+          { className: "comment-button", onClick: this.clickFunction.bind(this) },
           "Comment"
         )
       );
+    }
+  }, {
+    key: "clickFunction",
+    value: function clickFunction() {
+      console.log(this.props.id);
     }
   }]);
 
@@ -510,7 +515,7 @@ var TutorialDetails = function (_React$Component) {
             this.state.data.content
           ),
           _react2.default.createElement('hr', null),
-          _react2.default.createElement(_NewComment2.default, null),
+          _react2.default.createElement(_NewComment2.default, { id: this.state.data._id }),
           _react2.default.createElement(_CommentsList2.default, { data: this.state.data.comments })
         )
       );
