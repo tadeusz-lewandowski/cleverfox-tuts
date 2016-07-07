@@ -267,7 +267,7 @@ var Dropdowns = function (_React$Component) {
         console.log('sign-in');
         dropdown = _react2.default.createElement(
           'div',
-          null,
+          { className: 'sign-in-menu', id: 'sign-in-menu' },
           _react2.default.createElement('input', { type: 'text', placeholder: 'Username', className: 'sign-in-input' }),
           _react2.default.createElement('input', { type: 'password', placeholder: 'Password', className: 'sign-in-input' }),
           _react2.default.createElement(
@@ -277,8 +277,26 @@ var Dropdowns = function (_React$Component) {
           ),
           _react2.default.createElement(
             'span',
-            { className: 'sign-up-text' },
+            { className: 'sign-up-text', onClick: this.props.change.bind(null, 'sign-up') },
             'New to Cleverfox? Sign up'
+          )
+        );
+      } else if (this.props.mode == 'sign-up') {
+        dropdown = _react2.default.createElement(
+          'div',
+          { className: 'sign-in-menu', id: 'sign-in-menu' },
+          _react2.default.createElement('input', { type: 'text', placeholder: 'Username', className: 'sign-in-input' }),
+          _react2.default.createElement('input', { type: 'password', placeholder: 'Password', className: 'sign-in-input' }),
+          _react2.default.createElement('input', { type: 'password', placeholder: 'Repeat password', className: 'sign-in-input' }),
+          _react2.default.createElement(
+            'button',
+            { className: 'sign-in-button' },
+            'Sign-up'
+          ),
+          _react2.default.createElement(
+            'span',
+            { className: 'sign-up-text', onClick: this.props.change.bind(null, 'sign-in') },
+            'Or just sign in'
           )
         );
       } else {
@@ -291,11 +309,7 @@ var Dropdowns = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'container' },
-          _react2.default.createElement(
-            'div',
-            { className: 'sign-in-menu' },
-            dropdown
-          )
+          dropdown
         )
       );
     }
@@ -350,7 +364,7 @@ var Navbar = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).call(this));
 
     _this.state = { username: undefined, mode: undefined };
-    document.addEventListener("click", _this.closeDropdowns);
+    document.addEventListener("click", _this.closeDropdowns.bind(_this));
     return _this;
   }
 
@@ -411,8 +425,13 @@ var Navbar = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode })
+        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode, change: this.changeModeHandler.bind(this) })
       );
+    }
+  }, {
+    key: 'changeModeHandler',
+    value: function changeModeHandler(mode) {
+      this.setState({ mode: mode });
     }
   }, {
     key: 'closeDropdowns',
@@ -421,6 +440,9 @@ var Navbar = function (_React$Component) {
       if (dropdowns.style.display != 'none') {
         if (event.target.id != 'sign-in-menu' && event.target.parentNode.id != 'sign-in-menu' && event.target.id != 'sign-in-button') {
           dropdowns.style.display = 'none';
+          if (this.state.mode != 'sign-in') {
+            this.changeModeHandler('sign-in');
+          }
         }
       }
     }

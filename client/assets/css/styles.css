@@ -117,7 +117,7 @@ body {
 .sign-in-menu {
   position: absolute;
   width: 10rem;
-  height: 11rem;
+  padding-bottom: 1rem;
   background: #fff;
   top: 3rem;
   right: 0;

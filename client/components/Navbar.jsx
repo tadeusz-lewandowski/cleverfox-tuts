@@ -9,7 +9,7 @@ export default class Navbar extends React.Component {
   constructor(){
     super();
     this.state = {username : undefined, mode: undefined};
-    document.addEventListener("click", this.closeDropdowns);
+    document.addEventListener("click", this.closeDropdowns.bind(this));
   }
 
   componentDidMount(){
@@ -41,9 +41,13 @@ export default class Navbar extends React.Component {
             </ul>
           </div>
         </nav>
-        <Dropdowns mode={this.state.mode}/>
+        <Dropdowns mode={this.state.mode} change={this.changeModeHandler.bind(this)}/>
       </div>
     )
+  }
+
+  changeModeHandler(mode){
+    this.setState({mode : mode});
   }
 
   closeDropdowns(event){
@@ -51,6 +55,9 @@ export default class Navbar extends React.Component {
     if(dropdowns.style.display != 'none'){
       if(event.target.id != 'sign-in-menu' && event.target.parentNode.id != 'sign-in-menu' && event.target.id != 'sign-in-button'){
         dropdowns.style.display = 'none';
+        if(this.state.mode != 'sign-in'){
+          this.changeModeHandler('sign-in');
+        }
       }
     }
 
