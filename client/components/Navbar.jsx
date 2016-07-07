@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import qwest from 'qwest';
 import SignInButton from './SignInButton.jsx';
 import Dropdowns from './Dropdowns.jsx';
+import LoggedInButton from './LoggedInButton.jsx';
 
 export default class Navbar extends React.Component {
 
@@ -10,13 +11,16 @@ export default class Navbar extends React.Component {
     super();
     this.state = {username : undefined, mode: undefined};
     document.addEventListener("click", this.closeDropdowns.bind(this));
+    console.log('render w constr');
   }
 
   componentDidMount(){
+    console.log('render w did');
     var self = this;
     qwest.get('http://localhost:4000/api/profile')
   	  .then(function(xhr, response) {
         console.log(response);
+        self.setState({username : response.username, mode: 'logged'})
 	    })
       .catch(function(e, xhr, response) {
         self.setState({username : undefined, mode: 'sign-in'})
@@ -25,11 +29,14 @@ export default class Navbar extends React.Component {
 
   render() {
     var navButton;
-    var dropdownMode;
+
     console.log('render w navbarze');
     if(this.state.username == undefined){
       navButton = <SignInButton />;
+    } else{
+      navButton = <LoggedInButton username={this.state.username} />
     }
+
     return (
       <div>
         <nav className="navbar">
@@ -56,7 +63,7 @@ export default class Navbar extends React.Component {
       if(event.target.id != 'sign-in-menu' && event.target.parentNode.id != 'sign-in-menu' && event.target.id != 'sign-in-button'){
         dropdowns.style.display = 'none';
         if(this.state.mode != 'sign-in'){
-          this.changeModeHandler('sign-in');
+          //this.changeModeHandler('sign-in');
         }
       }
     }
