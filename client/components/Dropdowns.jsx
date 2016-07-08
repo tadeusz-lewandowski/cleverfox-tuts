@@ -12,7 +12,7 @@ export default class Dropdowns extends React.Component {
         <div className="sign-in-menu" id='sign-in-menu'>
           <input type="text" placeholder="Username" className="sign-in-input" id='username'/>
           <input type="password" placeholder="Password" className="sign-in-input" id='password'/>
-          <button className="sign-in-button" onClick={this.signIn}>Sign-in</button>
+          <button className="sign-in-button" onClick={this.props.signIn}>Sign-in</button>
           <span className="sign-up-text" onClick={this.props.change.bind(null,'sign-up')}>New to Cleverfox? Sign up</span>
         </div>
       );
@@ -46,20 +46,4 @@ export default class Dropdowns extends React.Component {
 
   }
 
-  signIn(){
-    var username = document.getElementById('username');
-    var password = document.getElementById('password');
-    if(username.value != '' && password.value != ''){
-      qwest.post('http://localhost:4000/api/login', {
-        username: username.value,
-        password: password.value
-     })
-     .then(function(xhr, response) {
-        console.log(response);
-     })
-     .catch(function(e, xhr, response) {
-        console.log(e);
-     });
-    }
-  }
 }

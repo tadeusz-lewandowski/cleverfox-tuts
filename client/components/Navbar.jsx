@@ -48,7 +48,7 @@ export default class Navbar extends React.Component {
             </ul>
           </div>
         </nav>
-        <Dropdowns mode={this.state.mode} change={this.changeModeHandler.bind(this)}/>
+        <Dropdowns mode={this.state.mode} change={this.changeModeHandler.bind(this)} signIn={this.signIn.bind(this)}/>
       </div>
     )
   }
@@ -67,7 +67,26 @@ export default class Navbar extends React.Component {
         }
       }
     }
+  }
 
-
+  signIn(){
+    var self = this;
+    var username = document.getElementById('username');
+    var password = document.getElementById('password');
+    if(username.value != '' && password.value != ''){
+      qwest.post('http://localhost:4000/api/login', {
+        username: username.value,
+        password: password.value
+     })
+     .then(function(xhr, response) {
+        console.log(response);
+        var dropdowns = document.getElementById('dropdowns');
+        dropdowns.style.display = 'none';
+        self.setState({username : response.username, mode: 'logged'})
+     })
+     .catch(function(e, xhr, response) {
+        console.log(e);
+     });
+    }
   }
 }

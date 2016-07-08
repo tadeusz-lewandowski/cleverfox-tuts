@@ -276,7 +276,7 @@ var Dropdowns = function (_React$Component) {
           _react2.default.createElement('input', { type: 'password', placeholder: 'Password', className: 'sign-in-input', id: 'password' }),
           _react2.default.createElement(
             'button',
-            { className: 'sign-in-button', onClick: this.signIn },
+            { className: 'sign-in-button', onClick: this.props.signIn },
             'Sign-in'
           ),
           _react2.default.createElement(
@@ -326,22 +326,6 @@ var Dropdowns = function (_React$Component) {
           dropdown
         )
       );
-    }
-  }, {
-    key: 'signIn',
-    value: function signIn() {
-      var username = document.getElementById('username');
-      var password = document.getElementById('password');
-      if (username.value != '' && password.value != '') {
-        _qwest2.default.post('http://localhost:4000/api/login', {
-          username: username.value,
-          password: password.value
-        }).then(function (xhr, response) {
-          console.log(response);
-        }).catch(function (e, xhr, response) {
-          console.log(e);
-        });
-      }
     }
   }]);
 
@@ -525,7 +509,7 @@ var Navbar = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode, change: this.changeModeHandler.bind(this) })
+        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode, change: this.changeModeHandler.bind(this), signIn: this.signIn.bind(this) })
       );
     }
   }, {
@@ -544,6 +528,26 @@ var Navbar = function (_React$Component) {
             //this.changeModeHandler('sign-in');
           }
         }
+      }
+    }
+  }, {
+    key: 'signIn',
+    value: function signIn() {
+      var self = this;
+      var username = document.getElementById('username');
+      var password = document.getElementById('password');
+      if (username.value != '' && password.value != '') {
+        _qwest2.default.post('http://localhost:4000/api/login', {
+          username: username.value,
+          password: password.value
+        }).then(function (xhr, response) {
+          console.log(response);
+          var dropdowns = document.getElementById('dropdowns');
+          dropdowns.style.display = 'none';
+          self.setState({ username: response.username, mode: 'logged' });
+        }).catch(function (e, xhr, response) {
+          console.log(e);
+        });
       }
     }
   }]);
