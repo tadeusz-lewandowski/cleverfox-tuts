@@ -77,16 +77,16 @@ export default class Navbar extends React.Component {
       qwest.post('http://localhost:4000/api/login', {
         username: username.value,
         password: password.value
-     })
-     .then(function(xhr, response) {
+      })
+      .then(function(xhr, response) {
         console.log(response);
         var dropdowns = document.getElementById('dropdowns');
         dropdowns.style.display = 'none';
         self.setState({username : response.username, mode: 'logged'})
-     })
-     .catch(function(e, xhr, response) {
+      })
+      .catch(function(e, xhr, response) {
         console.log(e);
-     });
+      });
     }
   }
 

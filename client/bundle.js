@@ -583,6 +583,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _qwest = require('qwest');
+
+var _qwest2 = _interopRequireDefault(_qwest);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -617,9 +621,20 @@ var NewComment = function (_React$Component) {
   }, {
     key: 'clickFunction',
     value: function clickFunction() {
+      var self = this;
       console.log(this.props.id);
       var input = document.getElementById('comment-input');
       console.log(input.value);
+      if (input.value != '' && input.value != undefined) {
+        _qwest2.default.post('http://localhost:4000/api/comments', {
+          id: self.props.id,
+          content: input.value
+        }).then(function (xhr, response) {
+          console.log(response);
+        }).catch(function (e, xhr, response) {
+          console.log(e);
+        });
+      }
     }
   }]);
 
@@ -628,7 +643,7 @@ var NewComment = function (_React$Component) {
 
 exports.default = NewComment;
 
-},{"react":245}],9:[function(require,module,exports){
+},{"qwest":66,"react":245}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
