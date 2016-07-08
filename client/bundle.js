@@ -309,7 +309,7 @@ var Dropdowns = function (_React$Component) {
           { className: 'sign-in-menu', id: 'sign-in-menu' },
           _react2.default.createElement(
             'span',
-            { className: 'sign-up-text' },
+            { className: 'sign-up-text', onClick: this.props.logout },
             'Log out'
           )
         );
@@ -509,7 +509,7 @@ var Navbar = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode, change: this.changeModeHandler.bind(this), signIn: this.signIn.bind(this) })
+        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode, change: this.changeModeHandler.bind(this), signIn: this.signIn.bind(this), logout: this.logout.bind(this) })
       );
     }
   }, {
@@ -549,6 +549,19 @@ var Navbar = function (_React$Component) {
           console.log(e);
         });
       }
+    }
+  }, {
+    key: 'logout',
+    value: function logout() {
+      var self = this;
+      _qwest2.default.get('http://localhost:4000/api/logout').then(function (xhr, response) {
+        console.log(response);
+        var dropdowns = document.getElementById('dropdowns');
+        dropdowns.style.display = 'none';
+        self.setState({ username: undefined, mode: 'sign-in' });
+      }).catch(function (e, xhr, response) {
+        console.log('error happen');
+      });
     }
   }]);
 

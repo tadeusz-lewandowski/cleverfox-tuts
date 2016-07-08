@@ -29,7 +29,7 @@ export default class Dropdowns extends React.Component {
     } else if(this.props.mode == 'logged'){
       dropdown = (
         <div className="sign-in-menu" id='sign-in-menu'>
-          <span className="sign-up-text">Log out</span>
+          <span className="sign-up-text" onClick={this.props.logout}>Log out</span>
         </div>
       );
     }else{
