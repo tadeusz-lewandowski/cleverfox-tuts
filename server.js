@@ -43,8 +43,8 @@ function isLoggedIn(req, res, next) {
   console.log(req.user);
   if (req.isAuthenticated())
       return next();
-
-  res.send('Authorize yourself');
+  res.sendStatus(401);
+  //res.send('Authorize yourself');
 }
 
 function isLoggedInAsAdmin(req, res, next) {
@@ -55,28 +55,13 @@ function isLoggedInAsAdmin(req, res, next) {
   res.send('Authorize yourself');
 }
 
-
-
-app.post('/api/comments', isLoggedIn, function(req, res){
-  Tutorial.findById(req.body.id, function(err, tutorial) {
-    if(err){
-      res.sendStatus(404);
-    } else{
-      tutorial.comments.push({ content: req.body.content, username: req.body.username});
-
-      tutorial.save(function(err) {
-        if(err){
-          res.sendStatus(403);
-        } else{
-          res.sendStatus(200);
-        }
-      });
-    }
-  });
+app.get('/api/profile', isLoggedIn, function(req, res){
+  res.json({ id: req.user.id, username: req.user.username });
 });
 
-app.get('/api/profile', isLoggedIn, function(req, res){
-  res.json({ username: req.user.username});
+app.get('/api/logout', function(req, res){
+  req.logout();
+  res.sendStatus(200);
 });
 
 app.post('/api/signup',
@@ -92,6 +77,24 @@ app.post('/api/login',
     res.json({ id: req.user.id, username: req.user.username });
   }
 );
+
+app.post('/api/comments', isLoggedIn, function(req, res){
+  Tutorial.findById(req.body.id, function(err, tutorial) {
+    if(err){
+      res.sendStatus(404);
+    } else{
+      tutorial.comments.push({ content: req.body.content, username: req.user.username});
+
+      tutorial.save(function(err) {
+        if(err){
+          res.sendStatus(403);
+        } else{
+          res.sendStatus(200);
+        }
+      });
+    }
+  });
+});
 
 app.route('/api/tutorials')
   .get(function(req, res){
