@@ -210,7 +210,7 @@ var CommentsList = function (_React$Component) {
       var comments;
 
       if (this.props.data != undefined) {
-        comments = this.props.data.map(function (comment) {
+        comments = this.props.data.reverse().map(function (comment) {
           return _react2.default.createElement(_Comment2.default, { key: comment._id, username: comment.username, content: comment.content });
         });
       }

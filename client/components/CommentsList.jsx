@@ -7,7 +7,7 @@ export default class CommentsList extends React.Component {
     var comments;
 
     if(this.props.data != undefined){
-      comments = this.props.data.map(function(comment) {
+      comments = this.props.data.reverse().map(function(comment) {
         return (
           <Comment key={comment._id} username={comment.username} content={comment.content} />
         );
