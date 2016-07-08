@@ -41,7 +41,7 @@ export default class Navbar extends React.Component {
       <div>
         <nav className="navbar">
           <div className="container">
-            <ul className="navbar-menu navbar-menu-right">
+            <ul className="navbar-menu navbar-menu-right" onClick={this.changeActive}>
               <li><Link to="/tutorials" className="link-active">Home</Link></li>
               <li><Link to="/aboutme">About</Link></li>
               <li>{navButton}</li>
@@ -127,5 +127,15 @@ export default class Navbar extends React.Component {
       .catch(function(e, xhr, response) {
         console.log('error happen')
      });
+  }
+
+  changeActive(event){
+    if(event.target.tagName == 'A' ){
+      var activeElements = 	document.getElementsByClassName("link-active");
+      for(var i=0; i < activeElements.length; i++){
+        activeElements[i].className='';
+      }
+      event.target.className = 'link-active';
+    }
   }
 }

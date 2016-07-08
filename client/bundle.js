@@ -482,7 +482,7 @@ var Navbar = function (_React$Component) {
             { className: 'container' },
             _react2.default.createElement(
               'ul',
-              { className: 'navbar-menu navbar-menu-right' },
+              { className: 'navbar-menu navbar-menu-right', onClick: this.changeActive },
               _react2.default.createElement(
                 'li',
                 null,
@@ -586,6 +586,17 @@ var Navbar = function (_React$Component) {
       }).catch(function (e, xhr, response) {
         console.log('error happen');
       });
+    }
+  }, {
+    key: 'changeActive',
+    value: function changeActive(event) {
+      if (event.target.tagName == 'A') {
+        var activeElements = document.getElementsByClassName("link-active");
+        for (var i = 0; i < activeElements.length; i++) {
+          activeElements[i].className = '';
+        }
+        event.target.className = 'link-active';
+      }
     }
   }]);
 

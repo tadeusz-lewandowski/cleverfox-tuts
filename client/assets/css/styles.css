@@ -43,6 +43,7 @@ body {
   display: block;
   padding: 0 0.5rem;
   text-transform: uppercase;
+  outline: 0;
 }
 .navbar-menu > li > span {
   color: #333;
