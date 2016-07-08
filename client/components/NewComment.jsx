@@ -1,5 +1,6 @@
 import React from 'react';
 import qwest from 'qwest';
+import io from 'socket.io-client';
 
 export default class NewComment extends React.Component {
 
@@ -23,6 +24,8 @@ export default class NewComment extends React.Component {
       })
       .then(function(xhr, response) {
         console.log(response);
+        var socket = io();
+        socket.emit('newComment', self.props.id);
       })
       .catch(function(e, xhr, response) {
         console.log(e);
