@@ -4,7 +4,7 @@ export default class SignInButton extends React.Component {
 
   render() {
     return (
-      <span onClick={this.clickFunction} id='sign-in-button'>Sign-c</span>
+      <span onClick={this.clickFunction} id='sign-in-button'>Sign-in</span>
     )
   }
 

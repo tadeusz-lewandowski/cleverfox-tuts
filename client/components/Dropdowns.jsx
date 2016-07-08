@@ -19,10 +19,10 @@ export default class Dropdowns extends React.Component {
     }else if(this.props.mode == 'sign-up'){
       dropdown = (
         <div className="sign-in-menu" id='sign-in-menu'>
-          <input type="text" placeholder="Username" className="sign-in-input"/>
-          <input type="password" placeholder="Password" className="sign-in-input"/>
-          <input type="password" placeholder="Repeat password" className="sign-in-input"/>
-          <button className="sign-in-button">Sign-up</button>
+          <input type="text" placeholder="Username" className="sign-in-input" id='username'/>
+          <input type="password" placeholder="Password" className="sign-in-input" id='password'/>
+          <input type="password" placeholder="Repeat password" className="sign-in-input" id='password-repeat'/>
+          <button className="sign-in-button" onClick={this.props.signUp}>Sign-up</button>
           <span className="sign-up-text" onClick={this.props.change.bind(null,'sign-in')}>Or just sign in</span>
         </div>
       );

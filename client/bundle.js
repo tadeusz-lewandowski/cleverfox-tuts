@@ -289,12 +289,12 @@ var Dropdowns = function (_React$Component) {
         dropdown = _react2.default.createElement(
           'div',
           { className: 'sign-in-menu', id: 'sign-in-menu' },
-          _react2.default.createElement('input', { type: 'text', placeholder: 'Username', className: 'sign-in-input' }),
-          _react2.default.createElement('input', { type: 'password', placeholder: 'Password', className: 'sign-in-input' }),
-          _react2.default.createElement('input', { type: 'password', placeholder: 'Repeat password', className: 'sign-in-input' }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'Username', className: 'sign-in-input', id: 'username' }),
+          _react2.default.createElement('input', { type: 'password', placeholder: 'Password', className: 'sign-in-input', id: 'password' }),
+          _react2.default.createElement('input', { type: 'password', placeholder: 'Repeat password', className: 'sign-in-input', id: 'password-repeat' }),
           _react2.default.createElement(
             'button',
-            { className: 'sign-in-button' },
+            { className: 'sign-in-button', onClick: this.props.signUp },
             'Sign-up'
           ),
           _react2.default.createElement(
@@ -509,7 +509,7 @@ var Navbar = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode, change: this.changeModeHandler.bind(this), signIn: this.signIn.bind(this), logout: this.logout.bind(this) })
+        _react2.default.createElement(_Dropdowns2.default, { mode: this.state.mode, change: this.changeModeHandler.bind(this), signIn: this.signIn.bind(this), logout: this.logout.bind(this), signUp: this.signUp.bind(this) })
       );
     }
   }, {
@@ -548,6 +548,30 @@ var Navbar = function (_React$Component) {
         }).catch(function (e, xhr, response) {
           console.log(e);
         });
+      }
+    }
+  }, {
+    key: 'signUp',
+    value: function signUp() {
+      var self = this;
+      var username = document.getElementById('username');
+      var password = document.getElementById('password');
+      var passwordRepeat = document.getElementById('password-repeat');
+
+      if (username.value != '' && password.value != '' && passwordRepeat.value != '') {
+        if (password.value === passwordRepeat.value) {
+          _qwest2.default.post('http://localhost:4000/api/signup', {
+            username: username.value,
+            password: password.value
+          }).then(function (xhr, response) {
+            console.log(response);
+            var dropdowns = document.getElementById('dropdowns');
+            dropdowns.style.display = 'none';
+            self.setState({ username: response.username, mode: 'logged' });
+          }).catch(function (e, xhr, response) {
+            console.log(e);
+          });
+        }
       }
     }
   }, {
@@ -685,7 +709,7 @@ var SignInButton = function (_React$Component) {
       return _react2.default.createElement(
         'span',
         { onClick: this.clickFunction, id: 'sign-in-button' },
-        'Sign-c'
+        'Sign-in'
       );
     }
   }, {
