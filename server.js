@@ -26,6 +26,8 @@ mongoose.connection.on('disconnected', function () {
 });
 
 var app = express();
+var server = require('http').createServer(app);
+var io = require("socket.io").listen(server)
 
 app.use(express.static(__dirname + '/client'))
 
@@ -89,6 +91,7 @@ app.post('/api/comments', isLoggedIn, function(req, res){
         if(err){
           res.sendStatus(403);
         } else{
+          io.emit('newComment ' + req.body.id, tutorial.comments);
           res.sendStatus(200);
         }
       });
@@ -167,6 +170,13 @@ app.get('*', function(req, res){
   res.sendFile(path.resolve(__dirname, 'client', 'index.html'))
 });
 
-app.listen(config.port, function () {
+server.listen(config.port, function () {
   console.log('Cleverfox tuts listening on port ' + config.port + '!');
+});
+
+
+io.on('connection', function(socket){
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
 });
