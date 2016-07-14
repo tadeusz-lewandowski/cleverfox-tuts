@@ -19,7 +19,6 @@ export default class NewTutorial extends React.Component{
           .then((xhr, response)=> {
             console.log(response);
             this.refs.title.value = '';
-            this.refs.category.value = '';
             this.refs.content.value = '';
           })
           .catch(function(e, xhr, response) {

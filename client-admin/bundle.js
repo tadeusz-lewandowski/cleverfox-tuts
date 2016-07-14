@@ -211,7 +211,6 @@ var NewTutorial = function (_React$Component) {
             }).then(function (xhr, response) {
               console.log(response);
               _this2.refs.title.value = '';
-              _this2.refs.category.value = '';
               _this2.refs.content.value = '';
             }).catch(function (e, xhr, response) {
               console.log(e);
