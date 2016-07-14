@@ -882,6 +882,12 @@ var TutorialDetails = function (_React$Component) {
     key: 'render',
     value: function render() {
 
+      var date = this.state.data.date;
+      var dateFormatted;
+      if (date != undefined) {
+        dateFormatted = date.slice(0, 10);
+      }
+
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -896,7 +902,7 @@ var TutorialDetails = function (_React$Component) {
           _react2.default.createElement(
             'h4',
             { className: 'article-date' },
-            this.state.data.date,
+            dateFormatted,
             ' by Tadeusz'
           ),
           _react2.default.createElement(

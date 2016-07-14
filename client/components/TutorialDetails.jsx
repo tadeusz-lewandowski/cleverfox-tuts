@@ -30,12 +30,18 @@ export default class TutorialDetails extends React.Component {
 
   render() {
 
+    var date = this.state.data.date;
+    var dateFormatted;
+    if(date != undefined){
+      dateFormatted = date.slice(0, 10);
+    }
+
     return (
       <div className="container">
 
         <div className="tutorial">
           <h1 className="article-title">{ this.state.data.title }</h1>
-          <h4 className="article-date">{ this.state.data.date } by Tadeusz</h4>
+          <h4 className="article-date">{ dateFormatted } by Tadeusz</h4>
           <article>
             { this.state.data.content }
           </article>
