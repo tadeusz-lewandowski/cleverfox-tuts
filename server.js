@@ -174,9 +174,9 @@ app.route('/api/tutorials/:id')
 
 
 
-/*app.get('*', function(req, res){
+app.get('*', function(req, res){
   res.sendFile(path.resolve(__dirname, 'client', 'index.html'))
-});*/
+});
 
 
 

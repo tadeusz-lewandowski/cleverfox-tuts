@@ -1,6 +1,7 @@
 import React from 'react';
 import qwest from 'qwest';
 import Unauthorized from './Unauthorized.jsx';
+import Navbar from './Navbar.jsx';
 
 export default class App extends React.Component{
   constructor(){
@@ -31,6 +32,7 @@ export default class App extends React.Component{
     } else if(this.state.authorized){
       return(
         <div>
+          <Navbar />
           {this.props.children}
         </div>
       )
