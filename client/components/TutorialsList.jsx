@@ -8,7 +8,7 @@ export default class TutorialsList extends React.Component {
       return (
         <TutorialBox key={tutorial._id} id={tutorial._id} category={tutorial.category} title={tutorial.title} />
       );
-    });
+    }).reverse();
     return (
       <ul className="thumbnails">
         {tutorials}

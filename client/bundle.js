@@ -210,9 +210,9 @@ var CommentsList = function (_React$Component) {
       var comments;
 
       if (this.props.data != undefined) {
-        comments = this.props.data.reverse().map(function (comment) {
+        comments = this.props.data.map(function (comment) {
           return _react2.default.createElement(_Comment2.default, { key: comment._id, username: comment.username, content: comment.content });
-        });
+        }).reverse();
       }
 
       return _react2.default.createElement(
@@ -944,6 +944,10 @@ var _qwest = require('qwest');
 
 var _qwest2 = _interopRequireDefault(_qwest);
 
+var _socket = require('socket.io-client');
+
+var _socket2 = _interopRequireDefault(_socket);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -971,6 +975,14 @@ var Tutorials = function (_React$Component) {
       _qwest2.default.get('http://localhost:4000/api/tutorials').then(function (xhr, response) {
         self.setState({ data: response });
       });
+
+      var socket = (0, _socket2.default)();
+      socket.on('newTutorial', function (tutorial) {
+        console.log('socket works');
+        var data = self.state.data;
+        data.push(tutorial);
+        self.setState({ data: data });
+      });
     }
   }, {
     key: 'render',
@@ -989,7 +1001,7 @@ var Tutorials = function (_React$Component) {
 
 exports.default = Tutorials;
 
-},{"./TutorialsList.jsx":13,"qwest":97,"react":276}],13:[function(require,module,exports){
+},{"./TutorialsList.jsx":13,"qwest":97,"react":276,"socket.io-client":277}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1029,7 +1041,7 @@ var TutorialsList = function (_React$Component) {
 
       var tutorials = this.props.data.map(function (tutorial) {
         return _react2.default.createElement(_TutorialBox2.default, { key: tutorial._id, id: tutorial._id, category: tutorial.category, title: tutorial.title });
-      });
+      }).reverse();
       return _react2.default.createElement(
         'ul',
         { className: 'thumbnails' },

@@ -126,7 +126,19 @@ app.route('/api/tutorials')
       if(err){
         res.sendStatus(403);
       } else{
+
+        /*Tutorial.find({}, function(err, tutorials) {
+          if(err){
+            res.sendStatus(404);
+          } else{
+            io.emit('newTutorial', tutorials);
+            res.sendStatus(200);
+          }
+        });*/
+
+        io.emit('newTutorial', tutorial);
         res.sendStatus(200);
+
       }
     });
   });

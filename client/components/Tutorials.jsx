@@ -1,6 +1,7 @@
 import React from 'react';
 import TutorialsList from './TutorialsList.jsx';
 import qwest from 'qwest';
+import io from 'socket.io-client';
 
 export default class Tutorials extends React.Component {
   constructor(){
@@ -14,6 +15,14 @@ export default class Tutorials extends React.Component {
   	  .then(function(xhr, response) {
         self.setState({ data: response});
 	    });
+
+    var socket = io();
+    socket.on('newTutorial', function(tutorial){
+      console.log('socket works');
+      var data = self.state.data;
+      data.push(tutorial);
+      self.setState({data : data});
+    });
   }
 
   render() {
