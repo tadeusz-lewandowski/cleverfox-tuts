@@ -29,7 +29,13 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require("socket.io").listen(server)
 
-app.use(express.static(__dirname + '/client'))
+app.use('/habanero/elczupakabra/nekoneko', express.static(path.join(__dirname, 'client-admin')));
+app.use('/', express.static(path.join(__dirname, 'client')));
+
+//app.use(express.static(__dirname + '/client'));
+//app.use('/admin', express.static(__dirname + '/client-admin'));
+//app.use('/', express.static(__dirname + '/client'));
+//app.use('/admin', express.static(__dirname + '/client-admin'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
@@ -166,9 +172,13 @@ app.route('/api/tutorials/:id')
     });
   });
 
-app.get('*', function(req, res){
+
+
+/*app.get('*', function(req, res){
   res.sendFile(path.resolve(__dirname, 'client', 'index.html'))
-});
+});*/
+
+
 
 server.listen(config.port, function () {
   console.log('Cleverfox tuts listening on port ' + config.port + '!');
