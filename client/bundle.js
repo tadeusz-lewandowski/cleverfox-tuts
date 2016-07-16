@@ -715,9 +715,14 @@ var SearchTutorials = function (_React$Component) {
   }
 
   _createClass(SearchTutorials, [{
+    key: "changeHandler",
+    value: function changeHandler(event) {
+      this.props.filter(event.target.value);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return _react2.default.createElement("input", { type: "text", className: "search", placeholder: "Click to search tutorials" });
+      return _react2.default.createElement("input", { type: "text", className: "search", placeholder: "Click to search tutorials", onChange: this.changeHandler.bind(this) });
     }
   }]);
 
@@ -1081,27 +1086,45 @@ var TutorialsList = function (_React$Component) {
   function TutorialsList() {
     _classCallCheck(this, TutorialsList);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(TutorialsList).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TutorialsList).call(this));
+
+    _this.state = {
+      filter: ''
+    };
+    return _this;
   }
 
   _createClass(TutorialsList, [{
     key: 'render',
     value: function render() {
-
-      var tutorials = this.props.data.map(function (tutorial) {
-        return _react2.default.createElement(_TutorialBox2.default, { key: tutorial._id, id: tutorial._id, category: tutorial.category, title: tutorial.title });
+      var self = this;
+      var tutorials = self.props.data.map(function (tutorial) {
+        if (self.state.filter == undefined || self.state.filter == '') {
+          return _react2.default.createElement(_TutorialBox2.default, { key: tutorial._id, id: tutorial._id, category: tutorial.category, title: tutorial.title });
+        } else {
+          if (tutorial.title.toLowerCase().indexOf(self.state.filter.toLowerCase()) != -1 || tutorial.category.toLowerCase().indexOf(self.state.filter.toLowerCase()) != -1) {
+            return _react2.default.createElement(_TutorialBox2.default, { key: tutorial._id, id: tutorial._id, category: tutorial.category, title: tutorial.title });
+          }
+        }
       });
 
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_SearchTutorials2.default, null),
+        _react2.default.createElement(_SearchTutorials2.default, { filter: this.filterResults.bind(this) }),
         _react2.default.createElement(
           'ul',
           { className: 'thumbnails' },
           (0, _sortArray2.default)(tutorials, 'key').reverse()
         )
       );
+    }
+  }, {
+    key: 'filterResults',
+    value: function filterResults(filterText) {
+      this.setState({
+        filter: filterText
+      });
     }
   }]);
 
