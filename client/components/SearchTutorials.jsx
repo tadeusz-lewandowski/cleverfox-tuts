@@ -8,7 +8,7 @@ export default class SearchTutorials extends React.Component {
 
   render() {
     return (
-      <input type="text" className="search" placeholder="Click to search tutorials" onChange={this.changeHandler.bind(this)}/>
+      <input type="text" className="search" placeholder="Click here to search" onChange={this.changeHandler.bind(this)}/>
     )
   }
 }

@@ -1,8 +1,10 @@
 import React from 'react';
+import ButtonDelete from './ButtonDelete.jsx';
 
 export default class TableTutorials extends React.Component{
 
   render(){
+    var self = this;
     var rows = this.props.resources.map(function(item){
       return (
         <tr key={item._id}>
@@ -10,6 +12,7 @@ export default class TableTutorials extends React.Component{
           <td>{item.category}</td>
           <td>{item.content.slice(0, 6) + '...'}</td>
           <td>{item.date}</td>
+          <td><ButtonDelete id={item._id} update={self.props.update}/></td>
         </tr>
       )
     });
@@ -22,6 +25,7 @@ export default class TableTutorials extends React.Component{
             <th>Category</th>
             <th>Content</th>
             <th>Date</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

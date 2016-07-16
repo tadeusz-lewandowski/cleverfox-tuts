@@ -23,11 +23,23 @@ export default class Tutorials extends React.Component {
       data.push(tutorial);
       self.setState({data : data});
     });
+    socket.on('deleteTutorial', function(tutorial){
+      var tutorialId = tutorial.id;
+      var data = self.state.data;
+
+      var updatedTuts = data.filter(function(obj) {
+          return [tutorialId].indexOf(obj._id) === -1;
+      });
+
+
+      console.log(updatedTuts);
+      self.setState({data : updatedTuts});
+    });
   }
 
   render() {
     return (
-      <div className="container">  
+      <div className="container">
         <TutorialsList data={this.state.data} />
       </div>
     )

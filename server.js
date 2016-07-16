@@ -29,7 +29,20 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require("socket.io").listen(server)
 
+app.use(cookieParser());
+
+app.use(session(config.session));
+app.use(passport.initialize());
+app.use(passport.session());
+
+/*app.all('/habanero/*', function(req, res, next) {
+  console.log(req.user);
+  if (req.isAuthenticated())
+      return next();
+  res.sendStatus(401);
+});*/
 app.use('/habanero/elczupakabra/nekoneko', express.static(path.join(__dirname, 'client-admin')));
+
 app.use('/', express.static(path.join(__dirname, 'client')));
 
 //app.use(express.static(__dirname + '/client'));
@@ -39,11 +52,7 @@ app.use('/', express.static(path.join(__dirname, 'client')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
-app.use(cookieParser());
 
-app.use(session(config.session));
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 
@@ -62,6 +71,10 @@ function isLoggedInAsAdmin(req, res, next) {
 
   res.send('Authorize yourself');
 }
+
+/*app.get('/habanero/elczupakabra/nekoneko/*', isLoggedIn, function(req, res){
+  res.json({ id: req.user.id, username: req.user.username });
+});*/
 
 app.get('/api/profile', isLoggedIn, function(req, res){
   res.json({ id: req.user.id, username: req.user.username });
@@ -179,6 +192,7 @@ app.route('/api/tutorials/:id')
       if (err){
         res.sendStatus(403);
       } else{
+        io.emit('deleteTutorial', {id: req.params.id});
         res.sendStatus(200);
       }
     });

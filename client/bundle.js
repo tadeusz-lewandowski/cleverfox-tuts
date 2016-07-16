@@ -722,7 +722,7 @@ var SearchTutorials = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react2.default.createElement("input", { type: "text", className: "search", placeholder: "Click to search tutorials", onChange: this.changeHandler.bind(this) });
+      return _react2.default.createElement("input", { type: "text", className: "search", placeholder: "Click here to search", onChange: this.changeHandler.bind(this) });
     }
   }]);
 
@@ -1029,6 +1029,17 @@ var Tutorials = function (_React$Component) {
         var data = self.state.data;
         data.push(tutorial);
         self.setState({ data: data });
+      });
+      socket.on('deleteTutorial', function (tutorial) {
+        var tutorialId = tutorial.id;
+        var data = self.state.data;
+
+        var updatedTuts = data.filter(function (obj) {
+          return [tutorialId].indexOf(obj._id) === -1;
+        });
+
+        console.log(updatedTuts);
+        self.setState({ data: updatedTuts });
       });
     }
   }, {

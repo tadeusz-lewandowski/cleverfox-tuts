@@ -27,9 +27,17 @@ export default class Tutorials extends React.Component{
       return (
         <div>
           <h2>Tutoriale</h2>
-          <TableTutorials resources={this.state.resources}/>
+          <TableTutorials resources={this.state.resources} update={this.updateResources.bind(this)}/>
         </div>
       )
     }
+  }
+
+  updateResources(){
+    var self = this;
+    qwest.get('http://localhost:4000/api/tutorials')
+  	  .then(function(xhr, response) {
+        self.setState({ resources: response, loading: false});
+	    });
   }
 }
