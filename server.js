@@ -179,6 +179,7 @@ app.route('/api/tutorials/:id')
           if(err){
             res.sendStatus(403);
           } else{
+            io.emit('updateTutorial', tutorial);
             res.sendStatus(200);
           }
         });

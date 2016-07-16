@@ -1,5 +1,6 @@
 import React from 'react';
 import ButtonDelete from './ButtonDelete.jsx';
+import ButtonUpdate from './ButtonUpdate.jsx';
 
 export default class TableTutorials extends React.Component{
 
@@ -12,7 +13,8 @@ export default class TableTutorials extends React.Component{
           <td>{item.category}</td>
           <td>{item.content.slice(0, 6) + '...'}</td>
           <td>{item.date}</td>
-          <td><ButtonDelete id={item._id} update={self.props.update}/></td>
+          <td><ButtonDelete id={item._id} update={self.props.update} /></td>
+          <td><ButtonUpdate id={item._id} /></td>
         </tr>
       )
     });

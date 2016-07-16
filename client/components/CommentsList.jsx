@@ -11,7 +11,7 @@ export default class CommentsList extends React.Component {
         return (
           <Comment key={comment._id} username={comment.username} content={comment.content} />
         );
-      }).reverse();
+      });
     }
 
     return (
