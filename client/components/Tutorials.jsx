@@ -27,8 +27,7 @@ export default class Tutorials extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <input type="text" className="search" placeholder="Click to search tutorials"/>
+      <div className="container">  
         <TutorialsList data={this.state.data} />
       </div>
     )

@@ -1,5 +1,6 @@
 import React from 'react';
 import TutorialBox from './TutorialBox.jsx';
+import SearchTutorials from './SearchTutorials.jsx';
 import sortBy from 'sort-array';
 
 export default class TutorialsList extends React.Component {
@@ -12,9 +13,12 @@ export default class TutorialsList extends React.Component {
     });
 
     return (
-      <ul className="thumbnails">
-        {sortBy(tutorials, 'key').reverse()}
-      </ul>
+      <div>
+        <SearchTutorials />
+        <ul className="thumbnails">
+          {sortBy(tutorials, 'key').reverse()}
+        </ul>
+      </div>
     )
 
   }
