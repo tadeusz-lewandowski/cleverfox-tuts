@@ -32,16 +32,19 @@ export default class NewTutorial extends React.Component{
   render(){
     return (
       <div>
-        <input type='text' ref='title'/>
-        <select ref='category'>
+        <label>Title</label>
+        <input type='text' ref='title' className="form-control"/>
+        <label>Category</label>
+        <select ref='category' className="form-control">
           <option>C++</option>
           <option>Python</option>
           <option>Ruby</option>
           <option>JS</option>
           <option>JSON</option>
         </select>
-        <textarea rows="4" cols="50" ref='content'></textarea>
-        <button ref='myButton'>Create</button>
+        <label>Content</label>
+        <textarea rows="4" cols="50" ref='content' className="form-control"></textarea>
+        <button ref='myButton' className='btn btn-success'>Create</button>
       </div>
     )
   }

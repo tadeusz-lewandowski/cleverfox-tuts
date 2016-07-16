@@ -20,13 +20,14 @@ export default class TableTutorials extends React.Component{
     });
 
     return (
-      <table>
+      <table className='table table-striped'>
         <thead>
           <tr>
             <th>Title</th>
             <th>Category</th>
             <th>Content</th>
             <th>Date</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>

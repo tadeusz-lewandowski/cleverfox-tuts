@@ -9,7 +9,7 @@ export default class ButtonUpdate extends React.Component{
   }
   render(){
     return (
-      <button onClick={this.editTutorial.bind(this)}>Edit</button>
+      <button onClick={this.editTutorial.bind(this)} className='btn btn-warning'>Edit</button>
     )
   }
 }

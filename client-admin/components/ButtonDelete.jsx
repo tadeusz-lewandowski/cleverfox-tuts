@@ -16,7 +16,7 @@ export default class ButtonDelete extends React.Component{
 
   render(){
     return (
-      <button onClick={this.deleteTutorial.bind(this)}>Delete</button>
+      <button onClick={this.deleteTutorial.bind(this)} className='btn btn-danger'>Delete</button>
     )
   }
 }

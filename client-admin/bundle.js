@@ -73,7 +73,11 @@ var App = function (_React$Component) {
           'div',
           null,
           _react2.default.createElement(_Navbar2.default, null),
-          this.props.children
+          _react2.default.createElement(
+            'div',
+            { className: 'container' },
+            this.props.children
+          )
         );
       }
     }
@@ -131,7 +135,7 @@ var ButtonDelete = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'button',
-        { onClick: this.deleteTutorial.bind(this) },
+        { onClick: this.deleteTutorial.bind(this), className: 'btn btn-danger' },
         'Delete'
       );
     }
@@ -188,7 +192,7 @@ var ButtonUpdate = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'button',
-        { onClick: this.editTutorial.bind(this) },
+        { onClick: this.editTutorial.bind(this), className: 'btn btn-warning' },
         'Edit'
       );
     }
@@ -281,10 +285,20 @@ var EditTutorial = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement('input', { type: 'text', ref: 'title' }),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Title'
+        ),
+        _react2.default.createElement('input', { type: 'text', ref: 'title', className: 'form-control' }),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Category'
+        ),
         _react2.default.createElement(
           'select',
-          { ref: 'category' },
+          { ref: 'category', className: 'form-control' },
           _react2.default.createElement(
             'option',
             null,
@@ -311,10 +325,15 @@ var EditTutorial = function (_React$Component) {
             'JSON'
           )
         ),
-        _react2.default.createElement('textarea', { rows: '4', cols: '50', ref: 'content' }),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Content'
+        ),
+        _react2.default.createElement('textarea', { rows: '4', cols: '50', ref: 'content', className: 'form-control' }),
         _react2.default.createElement(
           'button',
-          { ref: 'myButton' },
+          { ref: 'myButton', className: 'btn btn-warning' },
           'Update'
         )
       );
@@ -362,24 +381,57 @@ var Navbar = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'ul',
-        null,
+        'nav',
+        { className: 'navbar navbar-default' },
         _react2.default.createElement(
-          'li',
-          null,
+          'div',
+          { className: 'container' },
           _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/tutorials' },
-            'Tutorials'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
+            'div',
+            { className: 'navbar-header' },
+            _react2.default.createElement(
+              'button',
+              { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-1', 'aria-expanded': 'false' },
+              _react2.default.createElement(
+                'span',
+                { className: 'sr-only' },
+                'Toggle navigation'
+              ),
+              _react2.default.createElement('span', { className: 'icon-bar' }),
+              _react2.default.createElement('span', { className: 'icon-bar' }),
+              _react2.default.createElement('span', { className: 'icon-bar' })
+            ),
+            _react2.default.createElement(
+              'a',
+              { className: 'navbar-brand', href: '#' },
+              'Tuts'
+            )
+          ),
           _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/test' },
-            'Test'
+            'div',
+            { className: 'collapse navbar-collapse', id: 'bs-example-navbar-collapse-1' },
+            _react2.default.createElement(
+              'ul',
+              { className: 'nav navbar-nav navbar-right' },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/tutorials' },
+                  'Tutorials'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/test' },
+                  'Test'
+                )
+              )
+            )
           )
         )
       );
@@ -458,10 +510,20 @@ var NewTutorial = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement('input', { type: 'text', ref: 'title' }),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Title'
+        ),
+        _react2.default.createElement('input', { type: 'text', ref: 'title', className: 'form-control' }),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Category'
+        ),
         _react2.default.createElement(
           'select',
-          { ref: 'category' },
+          { ref: 'category', className: 'form-control' },
           _react2.default.createElement(
             'option',
             null,
@@ -488,10 +550,15 @@ var NewTutorial = function (_React$Component) {
             'JSON'
           )
         ),
-        _react2.default.createElement('textarea', { rows: '4', cols: '50', ref: 'content' }),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Content'
+        ),
+        _react2.default.createElement('textarea', { rows: '4', cols: '50', ref: 'content', className: 'form-control' }),
         _react2.default.createElement(
           'button',
-          { ref: 'myButton' },
+          { ref: 'myButton', className: 'btn btn-success' },
           'Create'
         )
       );
@@ -584,7 +651,7 @@ var TableTutorials = function (_React$Component) {
 
       return _react2.default.createElement(
         'table',
-        null,
+        { className: 'table table-striped' },
         _react2.default.createElement(
           'thead',
           null,
@@ -611,6 +678,7 @@ var TableTutorials = function (_React$Component) {
               null,
               'Date'
             ),
+            _react2.default.createElement('th', null),
             _react2.default.createElement('th', null)
           )
         ),
