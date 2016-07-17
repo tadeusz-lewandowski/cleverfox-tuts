@@ -6,6 +6,7 @@ var passport = require('passport');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
+var https = require('https');
 
 var Tutorial = require('./models/Tutorial.js');
 var User = require('./models/User.js');
@@ -26,7 +27,23 @@ mongoose.connection.on('disconnected', function () {
 });
 
 var app = express();
-var server = require('http').createServer(app);
+
+
+var fs = require('fs');
+
+var options = {
+  key: fs.readFileSync('./ssl/server.key'),
+  cert: fs.readFileSync('./ssl/server.crt'),
+  ca: fs.readFileSync('./ssl/ca.crt'),
+  requestCert: true,
+  rejectUnauthorized: false
+};
+var server = https.createServer(options,app);
+
+
+
+
+
 var io = require("socket.io").listen(server)
 
 app.use(cookieParser());
@@ -207,7 +224,7 @@ app.get('*', function(req, res){
 
 
 
-server.listen(config.port, function () {
+server.listen('8443', function () {
   console.log('Cleverfox tuts listening on port ' + config.port + '!');
 });
 

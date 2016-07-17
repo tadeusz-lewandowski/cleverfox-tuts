@@ -18,7 +18,7 @@ export default class NewComment extends React.Component {
     var input = document.getElementById('comment-input');
     console.log(input.value);
     if(input.value != '' && input.value != undefined){
-      qwest.post('http://localhost:4000/api/comments', {
+      qwest.post('/api/comments', {
         id: self.props.id,
         content: input.value
       })

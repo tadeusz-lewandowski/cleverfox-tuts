@@ -665,7 +665,7 @@ var NewComment = function (_React$Component) {
       var input = document.getElementById('comment-input');
       console.log(input.value);
       if (input.value != '' && input.value != undefined) {
-        _qwest2.default.post('http://localhost:4000/api/comments', {
+        _qwest2.default.post('/api/comments', {
           id: self.props.id,
           content: input.value
         }).then(function (xhr, response) {
@@ -914,7 +914,7 @@ var TutorialDetails = function (_React$Component) {
       //console.log("działa wszystko");
       var self = this;
 
-      _qwest2.default.get('http://localhost:4000/api/tutorials/' + this.props.params.id).then(function (xhr, response) {
+      _qwest2.default.get('/api/tutorials/' + this.props.params.id).then(function (xhr, response) {
         self.setState({ data: response });
       });
 

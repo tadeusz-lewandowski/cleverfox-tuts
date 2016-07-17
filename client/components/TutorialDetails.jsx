@@ -15,7 +15,7 @@ export default class TutorialDetails extends React.Component {
     //console.log("działa wszystko");
     var self = this;
 
-    qwest.get('http://localhost:4000/api/tutorials/' + this.props.params.id)
+    qwest.get('/api/tutorials/' + this.props.params.id)
   	  .then(function(xhr, response) {
         self.setState({ data: response});
 	    });
