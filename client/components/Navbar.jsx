@@ -17,7 +17,7 @@ export default class Navbar extends React.Component {
   componentDidMount(){
     console.log('render w did');
     var self = this;
-    qwest.get('http://localhost:4000/api/profile')
+    qwest.get('/api/profile')
   	  .then(function(xhr, response) {
         console.log(response);
         self.setState({username : response.username, mode: 'logged'})
@@ -74,7 +74,7 @@ export default class Navbar extends React.Component {
     var username = document.getElementById('username');
     var password = document.getElementById('password');
     if(username.value != '' && password.value != ''){
-      qwest.post('http://localhost:4000/api/login', {
+      qwest.post('/api/login', {
         username: username.value,
         password: password.value
       })
@@ -98,7 +98,7 @@ export default class Navbar extends React.Component {
 
     if(username.value != '' && password.value != '' && passwordRepeat.value != ''){
       if(password.value === passwordRepeat.value){
-        qwest.post('http://localhost:4000/api/signup', {
+        qwest.post('/api/signup', {
           username: username.value,
           password: password.value
         })
@@ -117,7 +117,7 @@ export default class Navbar extends React.Component {
 
   logout(){
     var self = this;
-    qwest.get('http://localhost:4000/api/logout')
+    qwest.get('/api/logout')
   	  .then(function(xhr, response) {
         console.log(response);
         var dropdowns = document.getElementById('dropdowns');

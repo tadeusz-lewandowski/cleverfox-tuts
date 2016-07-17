@@ -12,7 +12,7 @@ export default class App extends React.Component{
   }
   componentDidMount(){
     var self = this;
-    qwest.get('http://localhost:4000/api/profile')
+    qwest.get('/api/profile')
   	  .then(function(xhr, response) {
         console.log(response);
         self.setState({authorized: true });

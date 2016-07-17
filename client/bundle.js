@@ -452,7 +452,7 @@ var Navbar = function (_React$Component) {
     value: function componentDidMount() {
       console.log('render w did');
       var self = this;
-      _qwest2.default.get('http://localhost:4000/api/profile').then(function (xhr, response) {
+      _qwest2.default.get('/api/profile').then(function (xhr, response) {
         console.log(response);
         self.setState({ username: response.username, mode: 'logged' });
       }).catch(function (e, xhr, response) {
@@ -537,7 +537,7 @@ var Navbar = function (_React$Component) {
       var username = document.getElementById('username');
       var password = document.getElementById('password');
       if (username.value != '' && password.value != '') {
-        _qwest2.default.post('http://localhost:4000/api/login', {
+        _qwest2.default.post('/api/login', {
           username: username.value,
           password: password.value
         }).then(function (xhr, response) {
@@ -560,7 +560,7 @@ var Navbar = function (_React$Component) {
 
       if (username.value != '' && password.value != '' && passwordRepeat.value != '') {
         if (password.value === passwordRepeat.value) {
-          _qwest2.default.post('http://localhost:4000/api/signup', {
+          _qwest2.default.post('/api/signup', {
             username: username.value,
             password: password.value
           }).then(function (xhr, response) {
@@ -578,7 +578,7 @@ var Navbar = function (_React$Component) {
     key: 'logout',
     value: function logout() {
       var self = this;
-      _qwest2.default.get('http://localhost:4000/api/logout').then(function (xhr, response) {
+      _qwest2.default.get('/api/logout').then(function (xhr, response) {
         console.log(response);
         var dropdowns = document.getElementById('dropdowns');
         dropdowns.style.display = 'none';
@@ -1019,7 +1019,11 @@ var Tutorials = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var self = this;
-      _qwest2.default.get('http://localhost:4000/api/tutorials').then(function (xhr, response) {
+      /*qwest.get('http://localhost:4000/api/tutorials')
+       .then(function(xhr, response) {
+          self.setState({ data: response});
+       });*/
+      _qwest2.default.get('/api/tutorials').then(function (xhr, response) {
         self.setState({ data: response });
       });
 

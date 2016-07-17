@@ -17,7 +17,7 @@ export default class EditTutorial extends React.Component{
 
     console.log(this.props.params.id);
 
-    qwest.get('http://localhost:4000/api/tutorials/' + this.props.params.id)
+    qwest.get('/api/tutorials/' + this.props.params.id)
   	  .then(function(xhr, response) {
         console.log(response);
         self.setState({ tutorial: response});
@@ -33,7 +33,7 @@ export default class EditTutorial extends React.Component{
       if(title != undefined && category != undefined && content != undefined){
         if(title != '' && category != '' && content != ''){
 
-          qwest.map('PUT', 'http://localhost:4000/api/tutorials/' + this.props.params.id, {title: title, category: category, content: content})
+          qwest.map('PUT', '/api/tutorials/' + this.props.params.id, {title: title, category: category, content: content})
            .then(function() {
              hashHistory.push('/tutorials');
            });

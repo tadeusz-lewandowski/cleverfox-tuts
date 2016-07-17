@@ -5,7 +5,7 @@ export default class ButtonDelete extends React.Component{
 
   deleteTutorial(){
     var self = this;
-    qwest.delete('http://localhost:4000/api/tutorials/' + self.props.id)
+    qwest.delete('/api/tutorials/' + self.props.id)
      .then(function(tutorials){
        self.props.update();
      })

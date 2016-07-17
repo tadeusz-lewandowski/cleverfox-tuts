@@ -49,7 +49,7 @@ var App = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var self = this;
-      _qwest2.default.get('http://localhost:4000/api/profile').then(function (xhr, response) {
+      _qwest2.default.get('/api/profile').then(function (xhr, response) {
         console.log(response);
         self.setState({ authorized: true });
       }).catch(function (e, xhr, response) {
@@ -126,7 +126,7 @@ var ButtonDelete = function (_React$Component) {
     key: 'deleteTutorial',
     value: function deleteTutorial() {
       var self = this;
-      _qwest2.default.delete('http://localhost:4000/api/tutorials/' + self.props.id).then(function (tutorials) {
+      _qwest2.default.delete('/api/tutorials/' + self.props.id).then(function (tutorials) {
         self.props.update();
       }).catch(function () {});
     }
@@ -253,7 +253,7 @@ var EditTutorial = function (_React$Component) {
 
       console.log(this.props.params.id);
 
-      _qwest2.default.get('http://localhost:4000/api/tutorials/' + this.props.params.id).then(function (xhr, response) {
+      _qwest2.default.get('/api/tutorials/' + this.props.params.id).then(function (xhr, response) {
         console.log(response);
         self.setState({ tutorial: response });
       });
@@ -266,7 +266,7 @@ var EditTutorial = function (_React$Component) {
         if (title != undefined && category != undefined && content != undefined) {
           if (title != '' && category != '' && content != '') {
 
-            _qwest2.default.map('PUT', 'http://localhost:4000/api/tutorials/' + _this2.props.params.id, { title: title, category: category, content: content }).then(function () {
+            _qwest2.default.map('PUT', '/api/tutorials/' + _this2.props.params.id, { title: title, category: category, content: content }).then(function () {
               _reactRouter.hashHistory.push('/tutorials');
             });
           }
@@ -489,7 +489,7 @@ var NewTutorial = function (_React$Component) {
 
         if (title != undefined && category != undefined && content != undefined) {
           if (title != '' && category != '' && content != '') {
-            _qwest2.default.post('http://localhost:4000/api/tutorials', {
+            _qwest2.default.post('/api/tutorials', {
               title: title,
               category: category,
               content: content
@@ -792,7 +792,7 @@ var Tutorials = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var self = this;
-      _qwest2.default.get('http://localhost:4000/api/tutorials').then(function (xhr, response) {
+      _qwest2.default.get('/api/tutorials').then(function (xhr, response) {
         self.setState({ resources: response, loading: false });
       });
     }
@@ -827,7 +827,7 @@ var Tutorials = function (_React$Component) {
     key: 'updateResources',
     value: function updateResources() {
       var self = this;
-      _qwest2.default.get('http://localhost:4000/api/tutorials').then(function (xhr, response) {
+      _qwest2.default.get('/api/tutorials').then(function (xhr, response) {
         self.setState({ resources: response, loading: false });
       });
     }

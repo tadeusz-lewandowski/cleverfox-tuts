@@ -11,7 +11,7 @@ export default class NewTutorial extends React.Component{
 
       if(title != undefined && category != undefined && content != undefined){
         if(title != '' && category != '' && content != ''){
-          qwest.post('http://localhost:4000/api/tutorials', {
+          qwest.post('/api/tutorials', {
             title: title,
             category: category,
             content: content

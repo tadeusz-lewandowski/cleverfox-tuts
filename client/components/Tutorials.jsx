@@ -11,7 +11,11 @@ export default class Tutorials extends React.Component {
 
   componentDidMount() {
     var self = this;
-    qwest.get('http://localhost:4000/api/tutorials')
+    /*qwest.get('http://localhost:4000/api/tutorials')
+  	  .then(function(xhr, response) {
+        self.setState({ data: response});
+	    });*/
+    qwest.get('/api/tutorials')
   	  .then(function(xhr, response) {
         self.setState({ data: response});
 	    });
