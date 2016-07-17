@@ -51,7 +51,7 @@ app.use('/', express.static(path.join(__dirname, 'client')));
 //app.use('/admin', express.static(__dirname + '/client-admin'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
+
 
 
 
