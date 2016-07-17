@@ -41,7 +41,7 @@ app.use(passport.session());
       return next();
   res.sendStatus(401);
 });*/
-app.use('/habanero/elczupakabra/nekoneko', express.static(path.join(__dirname, 'client-admin')));
+app.use('/habanero/elczupakabra/nekoneko', isLoggedInAsAdmin, express.static(path.join(__dirname, 'client-admin')));
 
 app.use('/', express.static(path.join(__dirname, 'client')));
 
@@ -128,7 +128,7 @@ app.route('/api/tutorials')
       }
     });
   })
-  .post(function(req, res){
+  .post(isLoggedInAsAdmin, function(req, res){
     var tutorial = new Tutorial();
 
     tutorial.title = req.body.title;
@@ -166,7 +166,7 @@ app.route('/api/tutorials/:id')
       }
     });
   })
-  .put(function(req, res) {
+  .put(isLoggedInAsAdmin, function(req, res) {
     Tutorial.findById(req.params.id, function(err, tutorial) {
       if(err){
         res.sendStatus(404);
@@ -186,7 +186,7 @@ app.route('/api/tutorials/:id')
       }
     });
   })
-  .delete(function(req, res) {
+  .delete(isLoggedInAsAdmin, function(req, res) {
     Tutorial.remove({
         _id: req.params.id
     }, function(err, tutorial) {
